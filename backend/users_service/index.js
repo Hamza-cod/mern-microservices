@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const router = require('./routes/user.route');
 const authRouter = require('./routes/auth.route');
-const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const cors  = require('cors')
 
 dotenv.config();
@@ -11,11 +11,12 @@ const port = process.env.PORT
 const app =  express()
 const corstOptions = {
   credentials: true, // This is the important part to allow credentials,
-  origin: 'http://localhost:5173',
+  origin: process.env.FRONTEND_URL ||  'http://localhost:5173',
 }
 
 app.use(cors(corstOptions));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/users',cors(corstOptions),router)
 app.use('/api/auth',cors(corstOptions),authRouter)

@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken')
 const User = require('./../model/user.model');
 const bcrypt =  require('bcryptjs');
 const errorHandler = require('../utils/error');
+
+
 const sigup = async (req,res,next)=>{
   const {password,email,username} = req.body
   if (!username || !password || !email) {
@@ -33,9 +35,17 @@ const sigup = async (req,res,next)=>{
 
 const signin = async (req, res, next) => {
   const { email, password } = req.body;
+  // console.log()
   try {
-    const validUser = await User.findOne({ email });
-    if (!validUser) return next(errorHandler(404, 'User not found'));
+    const validUser = await User.findOne({$or: [
+        { email },
+        { username: email }
+      ]});
+      // console.log(validUser)
+    // res.json(validUser)
+
+    if (!validUser) return next(errorHandler(404, 'Username or Email unvalid'));
+    
     const validPassword = bcrypt.compareSync(password, validUser.password);
     if (!validPassword) return next(errorHandler(401, 'wrong credentials'));
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
