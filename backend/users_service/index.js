@@ -20,3 +20,12 @@ mongoose.connect(process.env.DB_URI).then(()=>{
 app.listen(port,()=>{
   console.log("Users service starting on http://localhost:"+port ,process.env.DB_URI)
 })
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
+  return res.status(statusCode).json({
+    success: false,
+    message,
+    statusCode,
+  });
+});
