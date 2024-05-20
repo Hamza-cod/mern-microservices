@@ -5,6 +5,21 @@ const bcrypt =  require('bcryptjs');
 const errorHandler = require('../utils/error');
 const sigup = async (req,res,next)=>{
   const {password,email,username} = req.body
+  if (!username || !password || !email) {
+    return res.status(422).json({ message: 'All fields are required' });
+  }
+  const userFond = await User.findOne({email})
+  // console.log(userFond)
+  if(userFond){
+      return res.status(422).json({ message: 'email already taken' });
+  }else{
+    const userFond = await User.findOne({username})
+    if(userFond)
+      {
+        return res.status(422).json({ message: 'username already taken' });
+      }
+  }
+  // res.json(req.body);
   const hashedPassword = bcrypt.hashSync(password,10)
   try {
     
