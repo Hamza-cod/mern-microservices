@@ -1,19 +1,24 @@
-import { useSelector } from "react-redux"
-import axiosClient from "../axios/axios";
+import { Workflow } from "lucide-react"
+import FeatureSection from "../components/Geust/FeatureSection"
+import HeroSection from "../components/Geust/HeroSection"
+import Pricing from "../components/Geust/Pricing"
+import Footer from "../components/Geust/Footer"
+import Testimonials from "../components/Geust/Testimonials"
+
 
 function Home() {
-  const user = useSelector(({user})=>user.user)
-  const  update = async()=>{
-    const res =  await  axiosClient.put("/users/update/"+user._id)
-    console.log(res)
-  }
-  // console.log(user);
+  
   return (
-    <div className="p-10">Home
-      <button className="p-6 bg-red-200" onClick={update}>
-        update action
-      </button>
-    </div>
+    <>
+    <div className="max-w-7xl mx-auto pt-20 px-6">
+        <HeroSection />
+        <FeatureSection />
+        <Workflow />
+        <Pricing />
+        <Testimonials />
+        <Footer />
+      </div>
+    </>
   )
 }
 
