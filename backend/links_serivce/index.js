@@ -1,6 +1,8 @@
 const express = require("express")
 const dotenv = require('dotenv') ;
 const cors = require('cors')
+const path = require('path');
+
 const cookieParser = require('cookie-parser')
 const { default: mongoose } = require("mongoose");
 const router = require("./routes/link.route");
@@ -15,6 +17,7 @@ const app = express();
 app.use(cors(corstOptions));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use("/api/links",router)
 app.get("/api/",(req,res)=>{

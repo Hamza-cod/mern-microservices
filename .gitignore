@@ -1,4 +1,6 @@
 */node_module
 node_modules
 */.env
+*/uploads
+*/*/uploads
 */*/.env

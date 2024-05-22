@@ -7,7 +7,7 @@ function Auth() {
   
   return user.username ? <div className=" flex">
     <NavAuth/>
-      <div className=" pt-[90px]  min-h-[100vh] max-w-[100%]">
+      <div className=" pt-[50px]  min-h-[100vh] max-w-[100%]">
         <Outlet/>
       </div>
       </div>

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { Link, NavLink, useNavigate } from "react-router-dom"
-import { persistor } from "../../../redux/store";
-import { setUser } from "../../../redux/slices/slice";
+import { persistor } from "../../redux/store";
+import { setUser } from "../../redux/slices/slice"
 import axiosClient from "../../axios/axios";
 import logo from '../../assets/logo.png'
 

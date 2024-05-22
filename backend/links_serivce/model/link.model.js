@@ -17,7 +17,11 @@ const linkSchema = mongoose.Schema({
     type:String,
     required : true,
     default : '/uploads/default_image.png'
-  }
+  },
+  creator :{
+    type:Object,
+    required : true,
+  },
 },{
   tiemestamps : true,
 })

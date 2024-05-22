@@ -1,4 +1,5 @@
 export const initialState = {
   user : {},
-  token: ''
+  token: '',
+  links:[]
 }

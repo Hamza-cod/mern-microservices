@@ -1,35 +1,88 @@
-import { CircleX, Image } from "lucide-react"
+import { CircleX, Image, LogOut } from "lucide-react"
 import { useCallback, useRef, useState } from "react"
 import { useDropzone} from 'react-dropzone'
+import axiosLinks from "../../axios/axiosLinks"
+import { useDispatch } from "react-redux"
+import { persistor } from "../../redux/store"
+import { setUser } from "../../redux/slices/slice"
+import axiosClient from "../../axios/axios"
+import { useNavigate } from "react-router-dom"
+import { addLink } from "../../redux/slices/LinkSlice"
 
 function AddLink({closeForm}) {
-  const [image,setImage] = useState({})
-  const imageRef = useRef()
- const handelSubmit = (e)=>{
+
+
+const [image,setImage] = useState({})
+const [err,setErr] = useState('')
+const dispatch = useDispatch()
+const navigate = useNavigate()
+const [loading,setLoading] = useState(false)
+
+ const urlRef = useRef()
+ const descriptionRef = useRef()
+ const titleRef = useRef()
+//  submit
+
+const handelSubmit = async (e)=>{
   e.preventDefault()
-  console.log(URL.createObjectURL(image))
+  const data = {
+    url : urlRef.current.value,
+    description : descriptionRef.current.value,
+    title : titleRef.current.value,
+     image: URL.createObjectURL(image)
+  }
+  const formData = new FormData
+  formData.append('url',urlRef.current.value,)
+  formData.append('description',descriptionRef.current.value)
+  formData.append('title',titleRef.current.value)
+  formData.append('image',image || null)
+  console.log(image)
+  try{
+    setLoading(true)
+    const res =  await axiosLinks.post('/links',formData)
+     dispatch(addLink(res.data.link))
+     closeForm()
+     console.log(res)
+  } 
+  catch({response})  {
+    if(response?.status === 401){
+      persistor.pause();
+      persistor.flush().then(() => {
+        dispatch(setUser({}))
+        axiosClient.get('/auth/logout');
+      return persistor.purge();
+    });
+    closeForm()
+    navigate('/login')
+
+    }
+    setErr(response.data?.message)
+  }finally{
+    setLoading(false)
+  }
  }
 
- const handleDragOver = (event) => {
-    event.preventDefault();
-  };
-  const handleDrop = (event) => {
-    event.preventDefault();
-    setImage(event.dataTransfer.files)
-  };
-  const onDrop = useCallback((acceptedFiles) => {
+
+
+
+// drag and drop
+const onDrop = useCallback((acceptedFiles) => {
     
     console.log(acceptedFiles[0])
     setImage(acceptedFiles[0])
   }, [])
- const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
+const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop
-  });
+});
+// end drag and drop
+
+
+
 
   return (
-    <div className="absolute w-full h-full  top-0 left-0 flex justify-center items-center">
+    <div className="absolute w-full h-full  top-0 left-0 flex justify-center items-center p-4">
     <div className="relative min-h-[500px] min-w-[400px] max-w-[450px] p-6
-     bg-gray-100 rounded-xl">
+     bg-gray-100 rounded-xl m-4">
       {/* heading */}
       <button  onClick={()=>closeForm(false)} className="absolute right-10 top-3">
        <CircleX className="hover:text-red-500 hover:scale-110 transition ease-linear duration-100" />
@@ -37,7 +90,10 @@ function AddLink({closeForm}) {
       <div className="capitalize font-semibold text-center shadow-2xl m-5">add link</div>
 
       {/* form */}
-      <form onSubmit={handelSubmit} >
+      <form onSubmit={handelSubmit}  >
+         {err &&<div className="bg-red-500 text-white p-3 rounded-md first-letter:uppercase">
+               {err}
+            </div>}
         <div>
               <label htmlFor="url" className="block text-sm font-medium leading-6 text-gray-900">
                 url
@@ -46,6 +102,7 @@ function AddLink({closeForm}) {
                 <input
                   id="url"
                   type="text"
+                  ref={urlRef}
                   required
                   className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none focus:ring-orange-600 sm:text-sm sm:leading-6"
                 />
@@ -60,6 +117,7 @@ function AddLink({closeForm}) {
                   id="title"
                   type="text"
                   required
+                  ref={titleRef}
                   className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none focus:ring-orange-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -72,6 +130,7 @@ function AddLink({closeForm}) {
                 <textarea
                   id="title"
                   type="text"
+                  ref={descriptionRef}
                   required
                   className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:outline-none focus:ring-orange-600 sm:text-sm sm:leading-6"
                 />
@@ -96,8 +155,11 @@ function AddLink({closeForm}) {
               
                
         </div>
-        <button type="submit">
-          submit
+        <button type="submit" 
+         className="flex w-full justify-center
+          bg-gradient-to-r from-orange-500 to-orange-600  rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white 
+         shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+          {loading?"loading .." :"submit"}
         </button>
       </form>
     </div>

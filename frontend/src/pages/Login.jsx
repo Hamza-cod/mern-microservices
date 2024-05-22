@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../axios/axios";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../redux/slices/slice";
+import { setUser } from "../redux/slices/slice";
 import logo from '../assets/logo.png'
 
 export default function Login() {
