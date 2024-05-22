@@ -1,7 +1,7 @@
 const express = require('express');
 const verifyToken = require('../middlewares/verifyUser');
 const User = require('../model/user.model');
-const router = express.Router();
+const  router = express.Router();
 
 
 router.get('/',(req,res)=>{
