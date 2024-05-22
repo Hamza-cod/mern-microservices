@@ -12,10 +12,8 @@ router.get('/',(req,res)=>{
     }
   )})
 
-router.put('/update/:id',verifyToken , (req,res,next)=>{
-  const {id} = req.params
-  const user = User.findOne({id});
-  res.json(user)
+router.get('/me/',verifyToken , (req,res,next)=>{
+  res.json(req.user)
 })
 
   

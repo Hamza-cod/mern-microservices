@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import video1 from "../../assets/video1.mp4";
 import video2 from "../../assets/video2.mp4";
 
@@ -14,12 +15,12 @@ const HeroSection = () => {
         Empower your creativity and make your landing page for shaire your links Afiliate and more
       </p>
       <div className="flex justify-center my-10">
-        <a
-          href="#"
+        <Link
+          to="/signup"
           className="bg-gradient-to-r from-orange-500 to-orange-800 py-3 px-4 mx-3 rounded-md"
         >
           Start for free
-        </a>
+        </Link>
         <a href="#" className="py-3 px-4 mx-3 rounded-md border">
           About
         </a>

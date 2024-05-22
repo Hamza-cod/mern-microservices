@@ -4,7 +4,6 @@ const errorHandler = require('../utils/error');
 
 const verifyToken = (req, res, next) => {
     const token =   req.cookies?.access_token
-    // res.json(token);
    
     if (token == null) return next(errorHandler(401, 'You are not authenticated!'));
 

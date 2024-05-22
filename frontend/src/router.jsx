@@ -4,6 +4,8 @@ import Guest from "./Layouts/Guest";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import Auth from "./Layouts/Auth";
+import Links from "./components/Auth/Links";
+import Profile from "./components/Auth/Profile";
 
 
 
@@ -33,15 +35,11 @@ const router = createBrowserRouter([
     children : [
       {
         path:"/admin",
-        element: <h1>dashboard</h1>
-      },
-      {
-        path:"/links",
-        element: <h1>links</h1>
+        element: <Links/>
       },
       {
         path:"/me",
-        element: <h1>profile</h1>
+        element: <Profile/>
       }
     ]
   },

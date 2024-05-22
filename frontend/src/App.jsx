@@ -5,6 +5,9 @@ const App = () => {
 
   return (
     <>
+    <div id="blur" className=" absolute h-full w-full z-5 bg-black/10 backdrop-blur-sm  hidden">
+      
+    </div>
     <RouterProvider router={router}/>
     </>
   )

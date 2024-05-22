@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import { persistor } from "../../../redux/store";
 import { setUser } from "../../../redux/slices/slice";
 import axiosClient from "../../axios/axios";
@@ -24,15 +24,14 @@ function NavAuth() {
       <img width={100} src={logo} alt="logo"/>
       <div className="flex flex-col justify-between items-center  h-full mt-4">
       <div className="flex flex-col gap-4 ">
-        <Link to='/dashboard'>dashboard</Link>
-        <Link to='/links'>links</Link>
-        <Link to='/me'>profile</Link>
+        <NavLink to='/admin' className="links px-9 py-3  rounded-md hover:bg-orange-500">links</NavLink>
+        <NavLink to='/me' className="links px-9 py-3  rounded-md hover:bg-orange-500">profile</NavLink>
       </div>
         
         {/* user name and image */}
         <div className="flex flex-col gap-x-3 items-center justify-center ">
         <div className=" flex justify-center items-center gap-3">
-        <div className="h-10 w-10 rounded-full bg-gray-400">
+        <div className="h-8 w-8 rounded-full bg-gray-400">
         </div>
             {user.username}
         </div>

@@ -63,37 +63,31 @@ export const features = [
     icon: <BotMessageSquare />,
     text: "Drag-and-Drop Interface",
     description:
-      "Easily design and arrange your VR environments with a user-friendly drag-and-drop interface.",
+      "Easily build your space with a user-friendly drag-and-drop interface.",
   },
   {
     icon: <Fingerprint />,
     text: "Multi-Platform Compatibility",
     description:
-      "Build VR applications that run seamlessly across multiple platforms, including mobile, desktop, and VR headsets.",
+      "Build page applications that run seamlessly across multiple platforms, including mobile, desktop,",
   },
   {
     icon: <ShieldHalf />,
     text: "Built-in Templates",
     description:
-      "Jumpstart your VR projects with a variety of built-in templates for different types of applications and environments.",
+      "Jumpstart your marketing projects with a variety of built-in templates for different types of applications and environments.",
   },
   {
     icon: <BatteryCharging />,
     text: "Real-Time Preview",
     description:
-      "Preview your VR application in real-time as you make changes, allowing for quick iterations and adjustments.",
-  },
-  {
-    icon: <PlugZap />,
-    text: "Collaboration Tools",
-    description:
-      "Work together with your team in real-time on VR projects, enabling seamless collaboration and idea sharing.",
+      "Preview your page in real-time as you make changes, allowing for quick iterations and adjustments.",
   },
   {
     icon: <GlobeLock />,
     text: "Analytics Dashboard",
     description:
-      "Gain valuable insights into user interactions and behavior within your VR applications with an integrated analytics dashboard.",
+      "Gain valuable insights into user interactions and behavior within your page with an integrated analytics dashboard.",
   },
 ];
 
