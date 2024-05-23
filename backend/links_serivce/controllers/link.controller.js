@@ -37,17 +37,22 @@ const createLink = async (req,res,next)=>{
   
 }
 const updateLink = async (req,res,next)=>{
-  const {url,description,title,image} = req.body
+  const {url,description,title} = req.body
   const {id} = req.params
   const validLink = await linkModel.findById(id);
   if(!validLink) {
     res.status(404).json({message :"link not nound"})
     }
-  if ( !url|| !description|| !title){
-    res.status(422).json({message : "All fields required"})
-  }
+    if ( !url|| !description|| !title){
+      res.status(422).json({message : "All fields required"})
+    }
+  const {originalname,path} = req.file
+  const parts = originalname?.split('.')
+  const ext = parts[parts?.length -1]
+  const newPath = path+'.'+ext
+  fs.renameSync(path,newPath);
   try{
-    const link = await linkModel.findByIdAndUpdate(id,{url,description,title,image})
+    const link = await linkModel.findByIdAndUpdate(id,{url,description,title,image:newPath})
     res.json({message : "link updated seccuess fully"})
   }catch (err){
     next(err)

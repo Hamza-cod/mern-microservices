@@ -19,7 +19,7 @@ const router = express.Router()
 
 router.get('/:username',getLinks)
 router.post('/',upload.single('image'),verifyToken,createLink)
-router.put('/:id',verifyToken,updateLink)
+router.put('/:id',upload.single('image'),verifyToken,updateLink)
 router.delete('/:id',verifyToken,deleteLink)
 
 

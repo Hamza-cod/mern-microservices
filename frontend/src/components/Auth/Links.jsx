@@ -3,6 +3,7 @@ import AddLink from "./AddLink"
 import { Plus } from "lucide-react"
 import useGetLinks from "../../hooks/useGetLinks"
 import { useSelector } from "react-redux"
+import Link from "./Link"
 
 function Links() {
 
@@ -17,18 +18,20 @@ function Links() {
   useEffect(()=>{
 
    if(isOpen){
+    document.body.classList.add("stop-scrolling");
     document.getElementById("blur").classList.remove('hidden')
   }else{
+    document.body.classList.remove("stop-scrolling");
     document.getElementById("blur").classList.add('hidden')
   }
   },[isOpen])
   
   return (
-    <div className="min-w-9 bg-gray-200 h-[500px] shadow-sm p-5 rounded-lg overflow-y-auto">
+    <div className="min-w-9 bg-gray-200 min-h-[500px] shadow-sm p-5 rounded-lg ">
       
       <button 
       onClick={showForm}
-      className="min-w6 bg-orange-400 w-[400px] flex justify-center items-center gap-3 mx-6 py-3 rounded-3xl font-semibold text-xl text-white ">
+      className="min-w6 capitalize bg-orange-400 w-[400px] flex justify-center items-center gap-3 mx-6 py-3 rounded-3xl  text-xl text-white ">
         <Plus className="" />add link
       </button>
       {
@@ -36,14 +39,7 @@ function Links() {
       }
        {
         links.map((link,index)=>
-          <div key={index} className="p-3 bg-white mt-4 rounded-lg">
-            <ul>
-              <li>{link.url}</li>
-              <li>{link.title}</li>
-              <li>{link.description}</li>
-            </ul>
-             <img width={100} src={import.meta.env.VITE_LINK_SERVICE+'/'+link.image} alt="imagelink" />
-          </div>
+          <Link key={index} link={link} />
         )
        }
     </div>

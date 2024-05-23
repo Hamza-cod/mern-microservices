@@ -20,7 +20,7 @@ function NavAuth() {
   }
   const user = useSelector(({user})=>user.user)
   return (
-    <nav className="flex flex-col  items-center  bg-gray-100 shadow-md w-[20%] p-5 m-5 rounded-2xl ">
+    <nav className="fixed flex  flex-col z-0  items-center h-[90vh]  bg-gray-100 shadow-md w-[20%] p-5 m-5 rounded-2xl ">
       <img width={100} src={logo} alt="logo"/>
       <div className="flex flex-col justify-between items-center  h-full mt-4">
       <div className="flex flex-col gap-4 ">
