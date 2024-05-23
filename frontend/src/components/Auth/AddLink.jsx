@@ -40,9 +40,9 @@ const handelSubmit = async (e)=>{
   try{
     setLoading(true)
     const res =  await axiosLinks.post('/links',formData)
+    
      dispatch(addLink(res.data.link))
      closeForm()
-     console.log(res)
   } 
   catch({response})  {
     if(response?.status === 401){
@@ -52,12 +52,13 @@ const handelSubmit = async (e)=>{
         axiosClient.get('/auth/logout');
       return persistor.purge();
     });
+    alert('you have to re login')
     closeForm()
     navigate('/login')
-
     }
     setErr(response.data?.message)
   }finally{
+    closeForm()
     setLoading(false)
   }
  }
@@ -71,8 +72,12 @@ const onDrop = useCallback((acceptedFiles) => {
     console.log(acceptedFiles[0])
     setImage(acceptedFiles[0])
   }, [])
+
 const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop
+    onDrop, 
+    accept: {
+      'image/*': [],
+    }
 });
 // end drag and drop
 

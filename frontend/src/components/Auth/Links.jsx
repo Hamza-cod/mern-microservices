@@ -11,13 +11,14 @@ function Links() {
   const showForm = ()=>{
      setIsOpen(!isOpen)
   }
+
   const links = useSelector(({links})=>links.links)
 
   useGetLinks()
   //  console.log(links)
   useEffect(()=>{
 
-   if(isOpen){
+   if(isOpen ){
     document.body.classList.add("stop-scrolling");
     document.getElementById("blur").classList.remove('hidden')
   }else{
@@ -26,7 +27,7 @@ function Links() {
   }
   },[isOpen])
   
-  return (
+  return (<>
     <div className="min-w-9 bg-gray-200 min-h-[500px] shadow-sm p-5 rounded-lg ">
       
       <button 
@@ -35,14 +36,20 @@ function Links() {
         <Plus className="" />add link
       </button>
       {
-        isOpen ?<AddLink closeForm={showForm}/>:''
+        isOpen ?<AddLink closeForm={showForm}/>:null
       }
+     
        {
-        links.map((link,index)=>
-          <Link key={index} link={link} />
+         links.map((link,index)=>{
+
+            
+           return <Link key={index} link={link}  />
+         }
         )
        }
     </div>
+  </>
+
   )
 }
 

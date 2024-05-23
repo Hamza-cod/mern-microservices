@@ -37,7 +37,9 @@ const createLink = async (req,res,next)=>{
   
 }
 const updateLink = async (req,res,next)=>{
-  const {url,description,title} = req.body
+  const {url,description,title,image} = req.body
+  console.log(image)
+  // console.log(image)
   const {id} = req.params
   const validLink = await linkModel.findById(id);
   if(!validLink) {
@@ -46,14 +48,19 @@ const updateLink = async (req,res,next)=>{
     if ( !url|| !description|| !title){
       res.status(422).json({message : "All fields required"})
     }
-  const {originalname,path} = req.file
-  const parts = originalname?.split('.')
-  const ext = parts[parts?.length -1]
-  const newPath = path+'.'+ext
-  fs.renameSync(path,newPath);
+    
   try{
+
+    let newPath = image
+    if(req.file){
+      const {originalname,path} = req.file
+      const parts = originalname?.split('.')
+      const ext = parts[parts?.length -1]
+      const newPath = path+'.'+ext
+      fs.renameSync(path,newPath);
+    }
     const link = await linkModel.findByIdAndUpdate(id,{url,description,title,image:newPath})
-    res.json({message : "link updated seccuess fully"})
+    res.json({message : "link updated seccuess fully",link})
   }catch (err){
     next(err)
   }
