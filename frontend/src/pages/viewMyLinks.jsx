@@ -2,8 +2,10 @@ import  { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axiosClient from '../axios/axios'
 import axiosLinks from '../axios/axiosLinks'
-import shortenString from '../utils/shortenString'
+
 import NotFound from './NotFound'
+
+import defaultPFP from '../assets/profile-pictures/default_image.jpg'
 
 function ViewMyLinks() {
   
@@ -50,7 +52,7 @@ function ViewMyLinks() {
   return (
     <div className=' w-full h-full flex justify-center items-center p-7'>
        <div className='flex flex-col gap-6 justify-center items-center'>
-          <img src={import.meta.env.VITE_USER_SERVICE+'/'+profilePicture} alt="image"
+          <img src={profilePicture ? import.meta.env.VITE_USER_SERVICE+'/'+profilePicture : defaultPFP}alt="image"
           className='w-[100px] h-[100px] rounded-full border ' />
           <h2 className='font-semibold'>{username}</h2>
           <p className=''>{description}</p>
