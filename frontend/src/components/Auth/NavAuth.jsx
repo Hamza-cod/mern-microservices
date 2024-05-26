@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux"
-import { Link, NavLink, useNavigate } from "react-router-dom"
+import {  NavLink, useNavigate } from "react-router-dom"
 import { persistor } from "../../redux/store";
-import { setUser } from "../../redux/slices/slice"
+import {setUser } from "../../redux/slices/slice"
 import axiosClient from "../../axios/axios";
 import logo from '../../assets/logo.png'
+import defaultPFP  from '../../assets/profile-pictures/default_image.jpg'
 
 function NavAuth() {
   const navigate = useNavigate();
@@ -11,14 +12,15 @@ function NavAuth() {
   const  logout = async()=>{
      
       persistor.pause();
+      disipatch(setUser({}))
       persistor.flush().then(() => {
-        disipatch(setUser({}))
         axiosClient.get('/auth/logout');
       return persistor.purge();
     });
     navigate('/login')
   }
-  const user = useSelector(({user})=>user.user)
+  const {user} = useSelector(({persistedReducer:user})=>user.user)
+  const   {profilePicture,username} = user
   return (
     <nav className="fixed flex  flex-col z-0  items-center h-[90vh]  bg-gray-100 shadow-md w-[20%] p-5 m-5 rounded-2xl ">
       <img width={100} src={logo} alt="logo"/>
@@ -31,9 +33,12 @@ function NavAuth() {
         {/* user name and image */}
         <div className="flex flex-col gap-x-3 items-center justify-center ">
         <div className=" flex justify-center items-center gap-3">
-        <div className="h-8 w-8 rounded-full bg-gray-400">
+        <div className="h-8 w-8 rounded-full bg-gray-400 overflow-hidden">
+
+            <img src={profilePicture ? import.meta.env.VITE_USER_SERVICE+'/'+profilePicture : defaultPFP} alt="profilepfp" className="rounded-full w-[100px]   bg-black" />
+         
         </div>
-            {user.username}
+            {username}
         </div>
       <button onClick={logout}>
         logout

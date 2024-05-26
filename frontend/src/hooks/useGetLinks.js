@@ -5,18 +5,18 @@ import { setLinks } from "../redux/slices/LinkSlice"
 
 function useGetLinks() {
   const disptch = useDispatch()
-  const {username} = useSelector(({user})=>user.user)
+  const user = useSelector(({persistedReducer:user})=>user.user.user)
   useEffect(()=>{
     (async()=>{
       try{
-        const {data} = await  axiosLinks.get('/links/'+username)
+        const {data} = await  axiosLinks.get('/links/'+user.username )
         disptch(setLinks(data))
         // console.log(data)
       }catch(err){
         console.log(err)
       }
     })()
-  },[disptch,username])
+  },[disptch,user.username])
 }
 
 export default useGetLinks

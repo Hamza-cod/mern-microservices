@@ -25,13 +25,15 @@ export default function Signup() {
     // console.log(data)
     try{ 
         setLoading(true)
-       await axiosClient.post("/auth/signup",JSON.stringify(data))
+       await axiosClient.post("/auth/signup",JSON.stringify(data),{ headers:{'Content-Type': 'application/json',
+      'Accept':'application/json', 
+  }})
        setError('')
        setCreated(true);
        setTimeout(()=>{
 
          navigate('/login');
-       },2000)
+       },3000)
   }catch({response}){
    setError(response.data.message)
   }finally{

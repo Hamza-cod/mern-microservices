@@ -7,6 +7,7 @@ const errorHandler = require('../utils/error');
 
 const sigup = async (req,res,next)=>{
   const {password,email,username} = req.body
+  
   // res.json(req.body)
   if (!username || !password || !email) {
     return res.status(422).json({ message: 'All fields are required' });
@@ -42,8 +43,6 @@ const signin = async (req, res, next) => {
         { email },
         { username: email }
       ]});
-      // console.log(validUser)
-    // res.json(validUser)
 
     if (!validUser) return next(errorHandler(404, 'Username or Email unvalid'));
     
@@ -55,7 +54,7 @@ const signin = async (req, res, next) => {
     res
       .cookie('access_token', token, { httpOnly: true, expires: expiryDate })
       .status(200)
-      .json({user :rest , access_token : token});
+      .json({user :rest,token});
   } catch (error) {
     next(error);
   }

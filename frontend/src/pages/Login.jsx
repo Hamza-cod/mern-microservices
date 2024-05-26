@@ -23,18 +23,21 @@ export default function Login() {
     // console.log(data)
     try{ 
         setLoading(true)
-     const  res =  await axiosClient.post("/auth/signin",JSON.stringify(data))
+     const  res =  await axiosClient.post("/auth/signin",JSON.stringify(data),{
+        headers:{'Content-Type': 'application/json',
+      'Accept':'application/json', 
+  }})
        setError('')
         if(res?.status === 200 )
           {
-            const {user,access_token} = res.data
-            console.log(user,access_token)
+            const {user,token} = res.data
+            console.log(user,token)
             dispatch(setUser(user))
+            // dispatch(setToken(token))
             navigate('/admin')
           }
-      console.log(res)
   }catch({response}){
-   setError(response.data.message)
+   setError(response?.data.message)
   }finally{
     setLoading(false)
   }

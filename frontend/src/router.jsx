@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Auth from "./Layouts/Auth";
 import Links from "./components/Auth/Links";
 import Profile from "./components/Auth/Profile";
+import ViewMyLinks from "./pages/viewMyLinks";
 
 
 
@@ -43,5 +44,9 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path:'/:username',
+    element:<ViewMyLinks/>
+  }
 ])
 export default router

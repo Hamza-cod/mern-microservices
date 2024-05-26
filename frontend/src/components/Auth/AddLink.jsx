@@ -25,18 +25,15 @@ const [loading,setLoading] = useState(false)
 
 const handelSubmit = async (e)=>{
   e.preventDefault()
-  const data = {
-    url : urlRef.current.value,
-    description : descriptionRef.current.value,
-    title : titleRef.current.value,
-     image: URL.createObjectURL(image)
-  }
+ 
   const formData = new FormData
   formData.append('url',urlRef.current.value,)
   formData.append('description',descriptionRef.current.value)
   formData.append('title',titleRef.current.value)
-  formData.append('image',image || null)
-  console.log(image)
+  if(image.name){
+    formData.append('image',image )
+  }
+  // console.log(image)
   try{
     setLoading(true)
     const res =  await axiosLinks.post('/links',formData)
@@ -56,9 +53,9 @@ const handelSubmit = async (e)=>{
     closeForm()
     navigate('/login')
     }
-    setErr(response.data?.message)
+    console.log(response.data)
+    setErr(response.data.message)
   }finally{
-    closeForm()
     setLoading(false)
   }
  }
@@ -150,10 +147,10 @@ const { acceptedFiles, getRootProps, getInputProps, isDragActive } = useDropzone
                 <Image/> 
               {
                 isDragActive ?
-                  <p>Drop the files here ...</p> :
+                  <p>Drop the image here ...</p> :
                   image.name ?<> <img src={URL?.createObjectURL(image)} alt="image" width={100} /> {image.name}</> 
-                  : <p>Drag & drop some files here, <br/>
-                  or click to select files</p>
+                  : <p>Drag & drop some image here, <br/>
+                  or click to select image</p>
               }
                 
             </div>

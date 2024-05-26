@@ -12,7 +12,7 @@ function Links() {
      setIsOpen(!isOpen)
   }
 
-  const links = useSelector(({links})=>links.links)
+  const {links} = useSelector(({persistedReducer:links})=>links.links)
 
   useGetLinks()
   //  console.log(links)
@@ -39,13 +39,17 @@ function Links() {
         isOpen ?<AddLink closeForm={showForm}/>:null
       }
      
-       {
-         links.map((link,index)=>{
+       { links.length >0 ?
+         links?.map((link,index)=>{
 
             
            return <Link key={index} link={link}  />
-         }
-        )
+         } 
+        ):
+        <div className="text-center p-8 pt-32 flex flex-col justify-center items-center gap-3 text-gray-400">
+            <Plus className="" />
+            No link yet
+        </div>
        }
     </div>
   </>

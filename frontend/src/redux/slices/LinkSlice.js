@@ -13,24 +13,19 @@ export const linkSlice = createSlice({
        return {...state ,links: [...state.links,payload]}
     },
     updateLink : (state , {payload})=>{
-      console.log(payload)
-      // console.log(state.links[0])
-      const { _id,image,title,description,url } = payload;
-      const links = state.links.find((link) => link._id === _id);
-    //  return console.log(state.find((link) => link._id === _id))
-    //  if (links) {
-    //     links.image = image;
-    //     links.title = title;
-    //     links.description = description;
-    //     links.url = url;
-    //   }
-    console.log(state)
-
+    const { id, updatedLink } =payload;
+      state.links = state.links.map(link =>
+        link._id === id ? { ...link, ...updatedLink } : link
+      );
+    },
+    deleteLink : (state , {payload})=>{
+    const { id} =payload;
+      state.links = state.links.filter(link=>link._id !== id)
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const {setLinks,addLink,updateLink } = linkSlice.actions
+export const {setLinks,addLink,updateLink ,deleteLink} = linkSlice.actions
 
 export default linkSlice.reducer
