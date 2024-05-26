@@ -20,6 +20,7 @@ const handelDelete = async(id)=>{
         {
           await axiosLinks.delete('/links/'+id)
           dispatch(deleteLink({id}))
+           document.getElementById('myPage').src = document.getElementById('myPage').src
         }
     } catch (error) {
       console.log(error)

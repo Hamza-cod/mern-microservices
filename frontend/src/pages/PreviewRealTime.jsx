@@ -11,8 +11,8 @@ const {iframeSrc} = reloadIframe(username)
     <div className="right-9 absolute">
       
       <iframe
-  id="inlineFrameExample"
-  title="Inline Frame Example"
+  id="myPage"
+  title="my page"
   width="300"
   height="500"
   className="p-3 shadow-xl rounded-lg   "

@@ -40,6 +40,7 @@ const handelSubmit = async (e)=>{
     
      dispatch(addLink(res.data.link))
      closeForm()
+    document.getElementById('myPage').src = document.getElementById('myPage').src
   } 
   catch({response})  {
     if(response?.status === 401){

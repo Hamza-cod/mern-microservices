@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import axiosClient from '../axios/axios'
 import axiosLinks from '../axios/axiosLinks'
 import shortenString from '../utils/shortenString'
+import NotFound from './NotFound'
 
 function ViewMyLinks() {
   
@@ -41,6 +42,11 @@ function ViewMyLinks() {
   
   
   const {profilePicture,username,description} = user
+  if(!username){
+    return <>
+    <NotFound/>
+    </>
+  }
   return (
     <div className=' w-full h-full flex justify-center items-center p-7'>
        <div className='flex flex-col gap-6 justify-center items-center'>
@@ -49,7 +55,7 @@ function ViewMyLinks() {
           <h2 className='font-semibold'>{username}</h2>
           <p className=''>{description}</p>
           <div>
-            {links?.map(link=><a href={link.url} key={link._id} className='flex sm:text-sm md:text-base mt-5 bg-orange-500 rounded-3xl py-4 px-2 md:px-11 justify-center
+            {links?.map(link=><a href={link.url} target='_blanc' key={link._id} className='flex sm:text-sm md:text-base mt-5 bg-orange-500 rounded-3xl py-4 px-2 md:px-11 justify-center
             items-center gap-6 text-white'>
             <img src={import.meta.env.VITE_LINK_SERVICE+'/'+link.image} alt="image"
           className='w-[50px] h-[50px] rounded-full border ' />

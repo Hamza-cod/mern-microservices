@@ -5,6 +5,7 @@ import {setUser } from "../../redux/slices/slice"
 import axiosClient from "../../axios/axios";
 import logo from '../../assets/logo.png'
 import defaultPFP  from '../../assets/profile-pictures/default_image.jpg'
+import { LogOut } from "lucide-react";
 
 function NavAuth() {
   const navigate = useNavigate();
@@ -31,17 +32,17 @@ function NavAuth() {
       </div>
         
         {/* user name and image */}
-        <div className="flex flex-col gap-x-3 items-center justify-center ">
-        <div className=" flex justify-center items-center gap-3">
-        <div className="h-8 w-8 rounded-full bg-gray-400 overflow-hidden">
+        <div className="flex flex-col gap-3 items-center justify-center ">
+        <div className=" flex justify-center items-center gap- p-1 rounded-full bg-white px-2 border-2">
+        <div className="h-8 w-8 rounded-full bg-gray-400 overflow-hidden ">
 
             <img src={profilePicture ? import.meta.env.VITE_USER_SERVICE+'/'+profilePicture : defaultPFP} alt="profilepfp" className="rounded-full w-[100px]   bg-black" />
          
         </div>
             {username}
         </div>
-      <button onClick={logout}>
-        logout
+      <button onClick={logout} className="p-3 px-4 flex justify-center items-center gap-3 rounded-full bg-orange-400 text-white">
+        logout <LogOut size={15}/>
       </button>  
         </div>
       </div>

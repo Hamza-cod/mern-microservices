@@ -6,6 +6,7 @@ import { setUser } from "../redux/slices/slice"
 import axiosClient from "../axios/axios"
 import { useEffect } from "react"
 import PreviewRealTime from "../pages/PreviewRealTime"
+import Copy from "../components/Auth/Copy"
 
 function Auth() {
   const navigate = useNavigate()
@@ -48,7 +49,8 @@ function Auth() {
 
     <NavAuth/>
     </div>
-      <div className=" pt-[50px]  min-h-[100vh] max-w-[100%] flex gap-9">
+        <Copy username={user?.username}/>
+      <div className=" pt-[60px]  min-h-[100vh] max-w-[100%] flex gap-9">
         <Outlet/>
         <PreviewRealTime/>
       </div>

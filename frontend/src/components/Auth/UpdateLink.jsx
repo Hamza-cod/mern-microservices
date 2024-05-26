@@ -51,6 +51,7 @@ function UpdateLink({ link, closeFrom }) {
       const updatedLink = data.link
       dispatch(updateLink({id:link._id,updatedLink}));
       closeFrom();
+      document.getElementById('myPage').src = document.getElementById('myPage').src
     } catch ({ response }) {
       if (response?.status === 401) {
         persistor.pause();
